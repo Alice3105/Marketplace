@@ -1,0 +1,14 @@
+{
+    "presets": [
+        ["@babel/preset-env", 
+            {
+                //Instruct Babel to compile against the current version of Node
+                //allow async/await expressions
+                "targets": {
+                    "node": "current" 
+                }
+            } 
+        ]
+    ]
+}
+    
