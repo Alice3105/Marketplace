@@ -75,12 +75,6 @@ mongoose.connect(
     throw new Error(`unable to connect to database: ${config.mongoUri}`) 
 })
 
-
-//Set up an Express route for handling HTTP GET requests to the root ("/")
-//When a GET HTTP request is made to "/", a callback function sends a JSON response
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to DressDeck Application!" });
-});
 //Start the Express server and make it listen on the port specified in the config object
 app.listen(config.port, (err) => { 
     //config.port is obtained from the connfig module

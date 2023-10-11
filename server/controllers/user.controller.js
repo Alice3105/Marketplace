@@ -17,7 +17,8 @@ const create = async (req, res) => {
         await product.save()
         //Display sucessful message
         return res.status(200).json({
-            message: "New product created succesffully!"
+            message: "New product created succesffully!",
+            data: product
         })
         //Catch any error
     } catch (err) {
@@ -30,8 +31,8 @@ const create = async (req, res) => {
 
 const list = async (req, res) => {
     try {
-        let users = await Product.find().select('name description price quantity category')
-        res.json(users)
+        let products = await Product.find().select('name description price quantity category')
+        res.json(products)
     } catch (err) {
         return res.status(400).json({
             error: errorHandler.getErrorMessage(err)
@@ -42,6 +43,8 @@ const list = async (req, res) => {
 const read = (req, res) => {
     return res.json(req.profile)
 }
+
+
 
 const update = async (req, res) => {
     try {
@@ -58,11 +61,29 @@ const update = async (req, res) => {
     }
 }
 
-const remove = async (req, res) => {
+const removeProductByID = async (req, res) => {
     try {
         let product = req.profile
-        let deleteProduct = await product.remove()
-        res.json(deleteProduct)
+        let deleteProduct = await product.deleteOne({_id:req.params.userId}) 
+        return res.status(200).json({
+            message: "Product deleted!",
+            data: deleteProduct
+        })
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
+        })
+    }
+}
+
+const removeAll = async (req, res) => {
+    try {
+        
+        let deleteProducts = await Product.deleteMany({})
+        return res.status(200).json({
+            message: "Product deleted!",
+            data: deleteProducts
+        })
     } catch (err) {
         return res.status(400).json({
             error: errorHandler.getErrorMessage(err)
@@ -75,13 +96,30 @@ const productByID = async (req, res, next, id) => {
         let product = await Product.findById(id)
         if (!product)
         return res.status('400').json({
-    error:"Product not found"})
-    req.profile = product
-    next()
+        error:"Product not found"})
+        req.profile = product
+        next()
     } catch (err) {
         return res.status('400').json({
             error:"Could not retrieve product"
         })
     }
 }
-export default {create, list, read, update, remove, productByID}
+
+const getProductByParams = async (req, res) => {
+    try {const name = req.query.name 
+    const query = new RegExp(name, 'i');
+    let products = await Product.find({name: query})
+   
+    res.status(200).json({
+        success: true,
+        data: products
+    })} catch (err) {
+        return res.status('400').json({
+            error:"Could not retrieve product"
+        })
+    }
+}
+
+
+export default {create, list, read, update, removeAll, removeProductByID, productByID, getProductByParams}

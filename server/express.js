@@ -13,6 +13,12 @@ const app = express()
 app.get('/', (req, res) => {
     res.status(200).send(Template()) 
     })
+
+/*//Set up an Express route for handling HTTP GET requests to the root ("/")
+//When a GET HTTP request is made to "/", a callback function sends a JSON response
+app.get('/', (req, res) => {
+    res.json({ message: "Welcome to DressDeck Application!" });
+});*/
     
 app.use(express.json())
 app.use(express.urlencoded({extended: true }))

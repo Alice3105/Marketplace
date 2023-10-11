@@ -5,7 +5,7 @@ import mongoose from "mongoose"
 //to generate a new Mongoose schema object
 const ProductSchema = new mongoose.Schema({
     name: {
-        type: String,
+        type: String
     },
 
     description: {

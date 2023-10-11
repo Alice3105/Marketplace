@@ -11,19 +11,21 @@ router.route('/api/product')
     //Add new Product
     .post(productCtrl.create)
     //Remove all Products
-    .delete(productCtrl.remove)
+    .delete(productCtrl.removeAll)
 //Get Product by id
-router.route('/api/product/:userId')
+router.route('/api/product/:id')
     .get(productCtrl.read)
     //Update Product by id
     .put(productCtrl.update)
     //Remove Product by id
-    .delete(productCtrl.remove)
+    .delete(productCtrl.removeProductByID)
     
 //Find all Products which name contains "kw"
-router.route('/api/product?name=[kw]')
-    .get(productCtrl.list)
-
-router.param('userId',productCtrl.productByID)
+router.route('/api/products') 
+    .get(productCtrl.getProductByParams)
+    
+    
+router.param('id',productCtrl.productByID)
+//router.param('kw', productCtrl.listByName)
 
 export default router

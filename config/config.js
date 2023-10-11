@@ -25,11 +25,11 @@ const config = {
     //If not, it will construct a URI using default values
     //This value is used to specify the MongoDB database connection URL
     mongoUri: process.env.MONGODB_URI || 
-    "mongodb+srv://alicehuynh3105:CFS1gcPhvDyjdoLH@cluster0.bunvgh8.mongodb.net/Marketplace?retryWrites=true&w=majority"
-    //process.env.MONGO_HOST ||
-    //'mongodb://' + (process.env.IP || 'localhost') + ':' + 
-    //(process.env.MONGO_PORT || '27017') +
-    //'/Marketplace'
+    "mongodb+srv://alicehuynh3105:ibv6rcsqg6QM7xsw@comp229404.2khzt8c.mongodb.net/marketplace?retryWrites=true&w=majority" ||
+    process.env.MONGO_HOST ||
+    'mongodb://' + (process.env.IP || 'localhost') + ':' + 
+    (process.env.MONGO_PORT || '27017') +
+    '/Marketplace'
 }
 
 //Export the config object as a default export of the module
